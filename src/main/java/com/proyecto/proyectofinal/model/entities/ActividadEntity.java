@@ -1,5 +1,6 @@
 package com.proyecto.proyectofinal.model.entities;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -64,7 +65,7 @@ public class ActividadEntity {
             inverseJoinColumns = @JoinColumn(name = "interes"))
     private List<InteresEntity> interesesActividad;
 
-     @OneToMany
+     @OneToMany(cascade = CascadeType.REMOVE)
      @JoinColumn(name = "comentario_id")
      private List<ComentarioEntity> comentarios;
 

@@ -5,6 +5,7 @@ import java.util.List;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.JoinColumn;
@@ -58,7 +59,7 @@ public class UsuarioEntity {
             inverseJoinColumns = @JoinColumn(name = "interes"))
     private List<InteresEntity> intereses;
      
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "usuarios_roles",
             joinColumns = @JoinColumn(name = "usuario_cedula"),
             inverseJoinColumns = @JoinColumn(name = "rol"))
