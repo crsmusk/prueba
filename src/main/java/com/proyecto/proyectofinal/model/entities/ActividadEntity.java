@@ -65,7 +65,7 @@ public class ActividadEntity {
             inverseJoinColumns = @JoinColumn(name = "interes"))
     private List<InteresEntity> interesesActividad;
 
-     @OneToMany(cascade = CascadeType.REMOVE)
+     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
      @JoinColumn(name = "comentario_id")
      private List<ComentarioEntity> comentarios;
 

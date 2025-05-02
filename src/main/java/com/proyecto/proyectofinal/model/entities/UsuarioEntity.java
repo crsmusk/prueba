@@ -45,11 +45,11 @@ public class UsuarioEntity {
     @Column(name = "foto_perfil_referencia")
     private String fotoPerfilReferencia;
 
-    @OneToMany(cascade = CascadeType.REMOVE)
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @JoinColumn(name = "telefono")
     private List<TelefonoEntity> telefonos;
 
-    @OneToMany(cascade = CascadeType.REMOVE)
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @JoinColumn(name = "email")
     private List<EmailEntity> emails;
      
