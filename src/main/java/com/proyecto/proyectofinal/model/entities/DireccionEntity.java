@@ -1,6 +1,8 @@
 package com.proyecto.proyectofinal.model.entities;
-import com.proyecto.proyectofinal.model.idEmbebido.IdDireccion;
 
+
+
+import com.proyecto.proyectofinal.model.idsEmbedded.IdDireccion;
 
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;

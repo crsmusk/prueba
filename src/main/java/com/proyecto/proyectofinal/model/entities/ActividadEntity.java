@@ -19,7 +19,7 @@ import lombok.Setter;
 
 import java.util.List;
 
-import com.proyecto.proyectofinal.model.idEmbebido.IdActividad;
+import com.proyecto.proyectofinal.model.idsEmbedded.IdActividad;
 
 @Setter
 @Getter

@@ -1,4 +1,4 @@
-package com.proyecto.proyectofinal.model.idEmbebido;
+package com.proyecto.proyectofinal.model.idsEmbedded;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
