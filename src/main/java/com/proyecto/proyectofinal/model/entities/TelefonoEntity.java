@@ -1,15 +1,18 @@
 package com.proyecto.proyectofinal.model.entities;
 
-import jakarta.persistence.Column;
+import com.proyecto.proyectofinal.model.idsEmbedded.IdTelefono;
+
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Setter
 @Getter
@@ -19,8 +22,12 @@ import jakarta.validation.constraints.Size;
 @Entity
 @Table(name = "telefonos")
 public class TelefonoEntity {
-    @Id
-    @Size(max = 15)
-    @Column(name = "telefono_id", unique = true)
-    private String numeroTelefono;
+    
+    @EmbeddedId
+    private IdTelefono id;
+    
+    @MapsId("usuarioCedula")
+    @ManyToOne
+    @JoinColumn(name = "usuario_cedula")
+    private UsuarioEntity usuario;
 }
