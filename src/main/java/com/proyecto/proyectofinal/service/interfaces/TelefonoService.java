@@ -4,11 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import com.proyecto.proyectofinal.model.entities.TelefonoEntity;
+import com.proyecto.proyectofinal.model.idsEmbedded.IdTelefono;
 
 public interface TelefonoService {
     TelefonoEntity guardarTelefono(TelefonoEntity telefono);
-    Optional<TelefonoEntity> buscarPorNumero(String numeroTelefono);
+    Optional<TelefonoEntity> buscarPorId(IdTelefono id);
     List<TelefonoEntity> listarTodos();
-    void eliminarTelefono(String numeroTelefono);
-    boolean existePorNumero(String numeroTelefono);
+    void eliminarTelefono(IdTelefono id);
+    Optional<TelefonoEntity> buscarPorNumeroTelefono(String numeroTelefono);
 }
