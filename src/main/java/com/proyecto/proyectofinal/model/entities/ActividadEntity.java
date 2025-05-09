@@ -5,6 +5,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinColumns;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
@@ -65,11 +66,13 @@ public class ActividadEntity {
             inverseJoinColumns = @JoinColumn(name = "interes"))
     private List<InteresEntity> interesesActividad;
 
-     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-     @JoinColumn(name = "comentario_id")
-     private List<ComentarioEntity> comentarios;
+    @OneToMany(mappedBy = "actividad", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private List<ComentarioEntity> comentarios;
 
     @ManyToOne
-    @JoinColumn(name = "direccion_id")
+    @JoinColumns({
+        @JoinColumn(name = "direccion", referencedColumnName = "direccion"),
+        @JoinColumn(name = "ciudad", referencedColumnName = "ciudad_id")
+    })
     private DireccionEntity direccionActividad;
 }
