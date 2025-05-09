@@ -1,7 +1,10 @@
 package com.proyecto.proyectofinal.model.entities;
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -26,4 +29,7 @@ public class InteresEntity {
     @Size(max = 20)
     @Column(name = "interes", unique = true)
     private String interes;
+
+    @ManyToMany(mappedBy = "intereses")
+    private List<UsuarioEntity> usuarios;
 }
