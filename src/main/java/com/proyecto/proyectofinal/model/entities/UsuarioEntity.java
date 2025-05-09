@@ -33,24 +33,25 @@ public class UsuarioEntity {
     @Id
     @Size(max = 20)
     private String cedula;
+    
     @Column(name = "nombre_usuario")
     @Size(max = 20)
     private String nombreUsuario;
+    
     @Column(name = "apellido_usuario")
     @Size(max = 20)
     private String apellidoUsuario;
+    
     @Size(max = 15)
     private String contrasena;
 
     @Column(name = "foto_perfil_referencia")
     private String fotoPerfilReferencia;
 
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-    @JoinColumn(name = "telefono")
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TelefonoEntity> telefonos;
 
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-    @JoinColumn(name = "email")
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EmailEntity> emails;
      
     @ManyToMany
@@ -70,5 +71,4 @@ public class UsuarioEntity {
             joinColumns = @JoinColumn(name = "usuario_cedula"),
             inverseJoinColumns = @JoinColumn(name = "notificacion_id"))
     private List<NotificacionEntity> notificacion;
-   
 }
