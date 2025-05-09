@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinColumns;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Size;
@@ -37,6 +38,9 @@ public class ComentarioEntity {
     private UsuarioEntity usuario;
     
     @ManyToOne
-    @JoinColumn(name = "actividad_id")
+    @JoinColumns({
+        @JoinColumn(name = "fecha_inicio", referencedColumnName = "fecha_inicio"),
+        @JoinColumn(name = "fecha_fin", referencedColumnName = "fecha_fin")
+    })
     private ActividadEntity actividad;
 }
