@@ -30,4 +30,5 @@ public class NotificacionEntity {
     private String contenido;
     @Size(max = 50)
     private String actividad;
+    
 }
