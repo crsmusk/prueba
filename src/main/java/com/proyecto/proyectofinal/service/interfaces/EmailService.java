@@ -8,7 +8,6 @@ import com.proyecto.proyectofinal.model.entities.EmailEntity;
 public interface EmailService {
     EmailEntity guardarEmail(EmailEntity email);
     Optional<EmailEntity> buscarPorEmail(String email);
-    List<EmailEntity> listarTodos();
     void eliminarEmail(String email);
-    boolean existePorEmail(String email);
+  
 }
