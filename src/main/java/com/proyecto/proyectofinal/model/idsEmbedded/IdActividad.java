@@ -12,8 +12,8 @@ import lombok.Data;
 @Embeddable
 public class IdActividad implements Serializable {
     
-        @Column(name = "fecha_inicio")
+    @Column(name = "fecha_inicio")
     private LocalDateTime fechaInicio;
-    @Column(name = "fecha_fin")
-    private LocalDateTime fechaFin;
+    @Column(name = "fecha_creacion")
+    private LocalDateTime fechaCreacion;
 }
