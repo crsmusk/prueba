@@ -98,6 +98,7 @@ public class ActividadServiceImpl implements ActividadService {
         if (actividad.getCapacidad() > 0 && !actividad.getParticipantes().contains(usuario)) {
 
            actividad.getParticipantes().add(usuario);
+           actividad.setCapacidad(actividad.getCapacidad() - 1);
         }  
         
         return actividadRepository.save(actividad);
