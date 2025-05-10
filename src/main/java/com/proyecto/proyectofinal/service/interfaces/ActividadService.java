@@ -15,6 +15,5 @@ public interface ActividadService {
     List<ActividadEntity> buscarPorCreador(String cedula);
     List<ActividadEntity> buscarEntreFechas(LocalDateTime inicio, LocalDateTime fin);
     List<ActividadEntity> buscarProximasActividades();
-    List<ActividadEntity> listarTodas();
     void eliminarActividad(IdActividad id);
 }

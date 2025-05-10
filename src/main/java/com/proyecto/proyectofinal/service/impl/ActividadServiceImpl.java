@@ -64,11 +64,6 @@ public class ActividadServiceImpl implements ActividadService {
         return actividadRepository.buscarProximasActividades();
     }
     
-    @Transactional(readOnly = true)
-    @Override
-    public List<ActividadEntity> listarTodas() {
-        return actividadRepository.findAll();
-    }
 
     @Override
     public void eliminarActividad(IdActividad id) {
