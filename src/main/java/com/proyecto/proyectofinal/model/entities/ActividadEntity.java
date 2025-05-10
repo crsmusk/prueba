@@ -43,6 +43,8 @@ public class ActividadEntity {
     @Column(name = "descripcion_actividad")
     @Size(max = 500)
     private String descripcionActividad;
+   
+    private int capacidad;
      
     @ManyToOne
     @JoinColumn(name = "creador_cedula")
