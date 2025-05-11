@@ -1,9 +1,12 @@
 package com.proyecto.proyectofinal.model.entities;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -31,4 +34,6 @@ public class NotificacionEntity {
     @Size(max = 50)
     private String actividad;
     
+    @ManyToMany(mappedBy = "notificacion")
+    List<UsuarioEntity> destinatarios;
 }

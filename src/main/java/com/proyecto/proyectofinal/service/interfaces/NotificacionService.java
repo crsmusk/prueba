@@ -4,10 +4,8 @@ import java.util.Optional;
 import java.util.List;
 
 import com.proyecto.proyectofinal.model.entities.NotificacionEntity;
+import com.proyecto.proyectofinal.model.entities.UsuarioEntity;
 
 public interface NotificacionService {
-    NotificacionEntity guardarNotificacion(NotificacionEntity notificacion);
-    Optional<NotificacionEntity> buscarPorId(Long id);
-    List<NotificacionEntity> listarTodas();
-    void eliminarNotificacion(Long id);
+    NotificacionEntity guardarNotificacion(List<UsuarioEntity> usuarios, String mensaje,String actividad);
 }

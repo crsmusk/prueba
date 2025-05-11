@@ -11,8 +11,4 @@ import com.proyecto.proyectofinal.model.entities.NotificacionEntity;
 @Repository
 public interface NotificacionRepository extends JpaRepository<NotificacionEntity, Long> {
      
-    // Eliminar notificacion
-    @Query("DELETE FROM NotificacionEntity n WHERE n.idNotificacion = :id")
-    void borrarActividad(@Param("id") Long id);
-    
 }
