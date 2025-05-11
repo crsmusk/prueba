@@ -83,6 +83,17 @@ public class ActividadServiceImpl implements ActividadService {
 
     @Override
     public void eliminarActividad(IdActividad id) {
+        if (this.actividadRepository.existsById(id)) {
+            ActividadEntity actividad = this.actividadRepository.findById(id).orElse(null);
+            for (UsuarioEntity participante : actividad.getParticipantes()) {
+                emailService.recordatorioActividadEliminidad(
+                    participante.getEmails().stream().map(EmailEntity::getEmail).toList(),
+                    actividad.getNombreActividad(),
+                    actividad.getId().getFechaInicio().toString(),
+                    actividad.getDireccionActividad().toString()
+                );
+            }
+        }
         actividadRepository.deleteById(id);
     }
 

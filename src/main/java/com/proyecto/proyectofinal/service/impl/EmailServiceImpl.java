@@ -33,6 +33,18 @@ public class EmailServiceImpl implements EmailService {
         
         emailSender.send(message);
     }
+    
+    @Transactional(readOnly = true)
+    public void recordatorioActividadEliminidad(List<String> destinatarios,String nombreActividad, String fecha, String ubicacion){
+         SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(destinatarios.toArray(new String[0]));
+        message.setSubject("Recordatorio: La actividad - " + nombreActividad);
+        message.setText("Hola,\n\nTe recordamos que la actividad fue canceladad '" + 
+                       nombreActividad + "' en " + ubicacion + " a las " + fecha + 
+                       ".\n\n¡Te esperamos!");
+        
+        emailSender.send(message);
+    }
 
     @Override
     @Transactional
