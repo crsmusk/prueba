@@ -17,7 +17,6 @@ import com.proyecto.proyectofinal.repository.ActividadRepository;
 import com.proyecto.proyectofinal.service.interfaces.ActividadService;
 import com.proyecto.proyectofinal.service.interfaces.UsuarioService;
 
-import jakarta.persistence.Id;
 
 
 

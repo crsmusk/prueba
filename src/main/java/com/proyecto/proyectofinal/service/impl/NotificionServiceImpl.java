@@ -1,7 +1,7 @@
 package com.proyecto.proyectofinal.service.impl;
 
 import java.util.List;
-import java.util.Optional;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,7 +23,8 @@ public class NotificionServiceImpl implements NotificacionService {
         notificacionGuardada.setContenido(mensaje);
         notificacionGuardada.setActividad(actividad);
         notificacionGuardada.setDestinatarios(usuarios);
-        return null;
+        
+        return this.notificacionRepository.save(notificacionGuardada);
     }
 
 }
