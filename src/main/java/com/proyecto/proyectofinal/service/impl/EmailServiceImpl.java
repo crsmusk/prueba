@@ -1,7 +1,7 @@
 package com.proyecto.proyectofinal.service.impl;
 
 import java.util.List;
-import java.util.Optional;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -33,7 +33,7 @@ public class EmailServiceImpl implements EmailService {
         
         emailSender.send(message);
     }
-    
+
     @Transactional(readOnly = true)
     public void recordatorioActividadEliminidad(List<String> destinatarios,String nombreActividad, String fecha, String ubicacion){
          SimpleMailMessage message = new SimpleMailMessage();
@@ -53,13 +53,6 @@ public class EmailServiceImpl implements EmailService {
             .findByEmail(email.getEmail())
             .orElse(emailRepository.save(email));
         return emailGuardado;
-    }
-
-
-    @Override
-    @Transactional(readOnly = true)
-    public Optional<EmailEntity> buscarPorEmail(String email) {
-        return emailRepository.findByEmail(email);
     }
 
     @Override
