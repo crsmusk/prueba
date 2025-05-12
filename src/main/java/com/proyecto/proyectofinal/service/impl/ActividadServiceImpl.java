@@ -1,6 +1,7 @@
 package com.proyecto.proyectofinal.service.impl;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.proyecto.proyectofinal.model.entities.ActividadEntity;
 import com.proyecto.proyectofinal.model.entities.EmailEntity;
+import com.proyecto.proyectofinal.model.entities.InteresEntity;
 import com.proyecto.proyectofinal.model.entities.UsuarioEntity;
 import com.proyecto.proyectofinal.model.idsEmbedded.IdActividad;
 import com.proyecto.proyectofinal.repository.ActividadRepository;
@@ -31,6 +33,9 @@ public class ActividadServiceImpl implements ActividadService {
     
     @Autowired
     private UsuarioService usuarioService;
+
+    @Autowired
+    private InteresServiceImpl interesService;
     
     @Transactional
     @Override
@@ -132,5 +137,20 @@ public class ActividadServiceImpl implements ActividadService {
                 );
             }
         }
+
+        
     }
+
+
+        public List<InteresEntity> optenerIntereses(List<String> intereses) {
+         List<InteresEntity> interesesEncontrados = new ArrayList<>();
+         for (String interes : intereses) {
+            Optional<InteresEntity> interesEncontrado = this.interesService.buscarPorNombre(interes);
+            if (interesEncontrado.isPresent()) {
+                interesesEncontrados.add(interesEncontrado.get());
+            }
+         }
+        
+         return interesesEncontrados;
+         }
 }
