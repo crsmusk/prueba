@@ -16,13 +16,6 @@
     <div class="container mt-5">
         <h2 class="mb-4">Registro de Usuario</h2>
         
-        <!-- 
-        <div th:if="${mensaje}" class="alert alert-success" role="alert">
-            <span th:text="${mensaje}"></span>
-        </div>
-        <div th:if="${error}" class="alert alert-danger" role="alert">
-            <span th:text="${error}"></span>
-        </div> -->
 
         <form th:action="@{/usuario/guardar}" method="post" th:object="${usuarioDto}" enctype="multipart/form-data">
             <div class="mb-3">
