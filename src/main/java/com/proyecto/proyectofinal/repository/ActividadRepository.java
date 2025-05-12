@@ -34,7 +34,7 @@ public interface ActividadRepository extends JpaRepository<ActividadEntity, IdAc
     );
 
     // Buscar actividades próximas (que no han comenzado)
-    @Query("SELECT a FROM ActividadEntity a WHERE a.id.fechaInicio >= CURRENT_TIMESTAMP")
+    @Query("SELECT a FROM ActividadEntity a WHERE a.id.fechaInicio > CURRENT_TIMESTAMP")
     List<ActividadEntity> buscarProximasActividades();
     
 }
