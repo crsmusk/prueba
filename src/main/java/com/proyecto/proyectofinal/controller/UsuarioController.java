@@ -33,7 +33,12 @@ public class UsuarioController {
     public String guardarUsuario(@ModelAttribute("usuarioDto") RequestUsuarioDTO usuarioDto, 
                                 RedirectAttributes redirectAttributes) {
        
-            // Convertir las cadenas separadas por comas a listas
+            //proceso de llenado de los campos
+            /*
+             * primerp se verifica que los campos no sean nulos  y que no esten vacios
+             * despues  atraves de un stream se separan los valores por comas y se convierten a una lista
+             * se podria considerar usar trim para los espacios
+            */
             if (usuarioDto.getTelefonos() != null && !usuarioDto.getTelefonos().isEmpty()) {
                 List<String> telefonos = Arrays.stream(usuarioDto.getTelefonos().get(0).split(","))
                     .collect(Collectors.toList());
@@ -59,7 +64,6 @@ public class UsuarioController {
             }
 
             usuarioService.guardarUsuario(usuarioDto);
-            redirectAttributes.addFlashAttribute("mensaje", "Usuario guardado exitosamente");
             return "redirect:/usuario/registro";
         
     }
