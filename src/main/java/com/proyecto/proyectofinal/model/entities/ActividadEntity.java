@@ -54,7 +54,7 @@ public class ActividadEntity {
     @JoinTable(name = "participantes",
             joinColumns = {
                 @JoinColumn(name = "fecha_inicio", referencedColumnName = "fecha_inicio"),
-                @JoinColumn(name = "fecha_fin", referencedColumnName = "fecha_fin")
+                @JoinColumn(name = "fecha_creacion", referencedColumnName = "fecha_creacion")
             },
             inverseJoinColumns = @JoinColumn(name = "usuario_cedula"))
     private List<UsuarioEntity> participantes;
@@ -63,7 +63,7 @@ public class ActividadEntity {
     @JoinTable(name = "intereses_actividad",
             joinColumns = {
                 @JoinColumn(name = "fecha_inicio", referencedColumnName = "fecha_inicio"),
-                @JoinColumn(name = "fecha_fin", referencedColumnName = "fecha_fin")
+                @JoinColumn(name = "fecha_creacion", referencedColumnName = "fecha_creacion")
             },
             inverseJoinColumns = @JoinColumn(name = "interes"))
     private List<InteresEntity> interesesActividad;
