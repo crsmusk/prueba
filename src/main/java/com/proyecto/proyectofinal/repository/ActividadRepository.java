@@ -24,14 +24,11 @@ public interface ActividadRepository extends JpaRepository<ActividadEntity, IdAc
     
     // Buscar actividades por creador
     @Query("SELECT a FROM ActividadEntity a WHERE a.creador.cedula = :cedula")
-    List<ActividadEntity> buscarActividadesPorCreador(@Param("cedula") String cedula);
-    
+    List<ActividadEntity> buscarActividadesPorCreador(@Param("cedula") String cedula);  
+
     // Buscar actividades entre fechas
-    @Query("SELECT a FROM ActividadEntity a WHERE a.id.fechaInicio >= :inicio AND a.id.fechaFin <= :fin")
-    List<ActividadEntity> findActivitiesBetweenDates(
-        @Param("inicio") LocalDateTime inicio, 
-        @Param("fin") LocalDateTime fin
-    );
+    @Query("SELECT a FROM ActividadEntity a WHERE a.id.fechaInicio = :inicio")
+    List<ActividadEntity> buscarPorFecha(  @Param("inicio") LocalDateTime inicio);
 
     // Buscar actividades próximas (que no han comenzado)
     @Query("SELECT a FROM ActividadEntity a WHERE a.id.fechaInicio > CURRENT_TIMESTAMP")
