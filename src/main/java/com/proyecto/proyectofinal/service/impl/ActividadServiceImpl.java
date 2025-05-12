@@ -119,9 +119,8 @@ public class ActividadServiceImpl implements ActividadService {
         return actividadRepository.save(actividad);
     }
 
-    @Scheduled(cron = "0 0 12 * * *") //se espera que se ejectute todos los dias alas 12
-    @Transactional(readOnly = true)
-    public void enviarRecordatoriosActividades() {
+      @Scheduled(cron = "0 0 12 * * *") //se espera que se ejectute todos los dias alas 12
+       public void enviarRecordatoriosActividades() {
         LocalDateTime mañana = LocalDateTime.now().plusDays(1).withHour(0).withMinute(0);
         
         List<ActividadEntity> actividadesManana = actividadRepository.buscarPorFecha(mañana);
