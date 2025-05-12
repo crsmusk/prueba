@@ -74,8 +74,8 @@ public class ActividadServiceImpl implements ActividadService {
     
     @Transactional(readOnly = true)
     @Override
-    public List<ActividadEntity> buscarEntreFechas(LocalDateTime inicio, LocalDateTime fin) {
-        return actividadRepository.findActivitiesBetweenDates(inicio, fin);
+    public List<ActividadEntity> buscarEntreFechas(LocalDateTime inicio) {
+        return actividadRepository.buscarPorFecha(inicio);
     }
  
     @Transactional(readOnly = true)
@@ -123,9 +123,8 @@ public class ActividadServiceImpl implements ActividadService {
     @Transactional(readOnly = true)
     public void enviarRecordatoriosActividades() {
         LocalDateTime mañana = LocalDateTime.now().plusDays(1).withHour(0).withMinute(0);
-        LocalDateTime pasadoMañana = mañana.plusDays(1);
         
-        List<ActividadEntity> actividadesManana = actividadRepository.findActivitiesBetweenDates(mañana, pasadoMañana);
+        List<ActividadEntity> actividadesManana = actividadRepository.buscarPorFecha(mañana);
         
         for (ActividadEntity actividad : actividadesManana) {
             for (UsuarioEntity participante : actividad.getParticipantes()) {
@@ -152,5 +151,5 @@ public class ActividadServiceImpl implements ActividadService {
          }
         
          return interesesEncontrados;
-         }
+        }
 }

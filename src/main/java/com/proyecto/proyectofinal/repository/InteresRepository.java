@@ -13,6 +13,9 @@ public interface InteresRepository extends JpaRepository<InteresEntity, String> 
     
     // Encontrar los intereses más populares 
     @Query("SELECT i, COUNT(u) as usuariosCount FROM InteresEntity i LEFT JOIN i.usuarios u GROUP BY i ORDER BY usuariosCount DESC")
-    List<InteresEntity> interesesMasPopulares();
+    List<InteresEntity> interesesMasPopulares(); 
+    
+    // Buscar intereses por nombre
+    InteresEntity findByInteresIgnoreCase(String nombre);
     
 }

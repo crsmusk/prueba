@@ -13,7 +13,7 @@ public interface ActividadService {
     List<ActividadEntity> buscarPorCiudad(String ciudad);
     List<ActividadEntity> buscarPorInteres(String interes);
     List<ActividadEntity> buscarPorCreador(String cedula);
-    List<ActividadEntity> buscarEntreFechas(LocalDateTime inicio, LocalDateTime fin);
+    List<ActividadEntity> buscarEntreFechas(LocalDateTime inicio);
     List<ActividadEntity> buscarProximasActividades();
     void eliminarActividad(IdActividad id);
     ActividadEntity inscribirUsuario(IdActividad idActividad, String cedulaUsuario);
