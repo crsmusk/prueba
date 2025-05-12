@@ -30,41 +30,10 @@ public class UsuarioController {
     }
 
     @PostMapping("/guardar")
-    public String guardarUsuario(@ModelAttribute("usuarioDto") RequestUsuarioDTO usuarioDto, 
-                                RedirectAttributes redirectAttributes) {
-       
-            //proceso de llenado de los campos
-            /*
-             * primerp se verifica que los campos no sean nulos  y que no esten vacios
-             * despues  atraves de un stream se separan los valores por comas y se convierten a una lista
-             * se podria considerar usar trim para los espacios
-            */
-            if (usuarioDto.getTelefonos() != null && !usuarioDto.getTelefonos().isEmpty()) {
-                List<String> telefonos = Arrays.stream(usuarioDto.getTelefonos().get(0).split(","))
-                    .collect(Collectors.toList());
-                usuarioDto.setTelefonos(telefonos);
-            }
-            
-            if (usuarioDto.getEmails() != null && !usuarioDto.getEmails().isEmpty()) {
-                List<String> emails = Arrays.stream(usuarioDto.getEmails().get(0).split(","))
-                    .collect(Collectors.toList());
-                usuarioDto.setEmails(emails);
-            }
-            
-            if (usuarioDto.getIntereses() != null && !usuarioDto.getIntereses().isEmpty()) {
-                List<String> intereses = Arrays.stream(usuarioDto.getIntereses().get(0).split(","))
-                    .collect(Collectors.toList());
-                usuarioDto.setIntereses(intereses);
-            }
-            
-            if (usuarioDto.getRoles() != null && !usuarioDto.getRoles().isEmpty()) {
-                List<String> roles = Arrays.stream(usuarioDto.getRoles().get(0).split(","))
-                    .collect(Collectors.toList());
-                usuarioDto.setRoles(roles);
-            }
-
-            usuarioService.guardarUsuario(usuarioDto);
-            return "redirect:/usuario/registro";
+    public String guardarUsuario(@ModelAttribute("usuarioDto") RequestUsuarioDTO usuarioDto,
+            RedirectAttributes redirectAttributes) {
+        this.usuarioService.guardarUsuario(usuarioDto);
         
+        return "redirect:/usuario/registro";
     }
 }
