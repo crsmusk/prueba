@@ -40,7 +40,7 @@ public class ComentarioEntity {
     @ManyToOne
     @JoinColumns({
         @JoinColumn(name = "fecha_inicio", referencedColumnName = "fecha_inicio"),
-        @JoinColumn(name = "fecha_fin", referencedColumnName = "fecha_fin")
+        @JoinColumn(name = "fecha_creacion", referencedColumnName = "fecha_creacion")
     })
     private ActividadEntity actividad;
 }
