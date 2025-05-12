@@ -161,7 +161,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
             return "/fotos/" + nombreArchivo;
         } catch (Exception e) {
-            System.out.println("Error al guardar la imagen: " + e.getMessage());
+            System.out.println("aqui esta el error: " + e.getMessage());
             e.printStackTrace();
             return null;
         }
@@ -173,6 +173,7 @@ public class UsuarioServiceImpl implements UsuarioService {
             Optional<InteresEntity> interesEncontrado = this.interesService.buscarPorNombre(interes);
             if (interesEncontrado.isPresent()) {
                 interesesEncontrados.add(interesEncontrado.get());
+                System.out.println("interes encontrado: " + interesEncontrado.get().getInteres());
             }
         }
         
