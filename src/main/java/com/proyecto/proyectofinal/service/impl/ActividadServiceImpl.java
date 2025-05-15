@@ -10,6 +10,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.proyecto.proyectofinal.model.dtos.requestDtos.RequestActividadDTO;
 import com.proyecto.proyectofinal.model.entities.ActividadEntity;
 import com.proyecto.proyectofinal.model.entities.EmailEntity;
 import com.proyecto.proyectofinal.model.entities.InteresEntity;
@@ -36,17 +37,27 @@ public class ActividadServiceImpl implements ActividadService {
 
     @Autowired
     private InteresServiceImpl interesService;
+
+    @Autowired
+    private DireccionServiceImpl direccionService;
     
     @Transactional
     @Override
-    public ActividadEntity guardarActividad(ActividadEntity actividad) {
-        IdActividad idActividad = actividad.getId();
+    public ActividadEntity guardarActividad(RequestActividadDTO actividadDto) {
+        IdActividad idActividad =new IdActividad();
+        idActividad.setFechaInicio(actividadDto.getFechaInicio());
         idActividad.setFechaCreacion(LocalDateTime.now());
-        ActividadEntity actividadGuardada = this.actividadRepository.findById(actividad.getId())
-            .orElse( actividadRepository.save(actividad));
-
-        actividadGuardada.setId(idActividad);
-        return actividadGuardada;
+        
+        ActividadEntity actividad = new ActividadEntity();
+        actividad.setId(idActividad);
+        actividad.setNombreActividad(actividadDto.getNombre());
+        actividad.setDescripcionActividad(actividadDto.getDescripcion());
+        actividad.setCapacidad(actividadDto.getCapacidad());
+        actividad.setDireccionActividad(this.direccionService.guardarDireccion(actividadDto.getDireccion(),actividadDto.getCiudad()));
+        actividad.setCreador(this.usuarioService.buscarPorCedula(actividadDto.getCedulaCreador()).orElse(null));
+        actividad.setInteresesActividad(optenerIntereses(actividadDto.getIntereses()));
+         
+        return this.actividadRepository.save(actividad);
     }
 
     @Transactional(readOnly = true)
