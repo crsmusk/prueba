@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{templates.layout/plantilla :: head}"></head>
+<body>
+
+    <div class="sidebar">
+        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+            opciones
+        </button>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Inicio</a></li>
+            <li><a class="dropdown-item" href="#">Mis actividades</a></li>
+            <li><a class="dropdown-item" href="#">Configuración</a></li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <div class="feed">
+            <div class="actividad" th:each="actividad : ${actividades}">
+                <div class="actividad-cabezero">
+                    <img src="https://via.placeholder.com/40" alt="Avatar">
+                    <div>
+                        <strong th:text="${actividad.creador}">Juan Pérez</strong>
+                        <span th:text="${actividad.correoCreador}">@juanp</span>
+                    </div>
+                </div>
+                <div class="actividad-nombre">
+                    <p th:text="${actividad.nombre}">Nombre de la actividad</p>
+                </div>
+                <div class="actividad-contenido">
+                    <p th:text="${actividad.descripcionActividad}">Descripción de la actividad</p>
+                    <img src="https://via.placeholder.com/300x200" alt="Imagen de la actividad">
+                </div>
+                <div class="actividad-acciones">
+                    <button>👍 Inscribirme</button>
+                    <button>💬 Comentar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
