@@ -14,7 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.proyecto.proyectofinal.model.dtos.requestDtos.RequestUsuarioDTO;
+import com.proyecto.proyectofinal.service.interfaces.EmailService;
 import com.proyecto.proyectofinal.service.interfaces.UsuarioService;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 @RequestMapping("/usuario")
@@ -22,6 +25,7 @@ public class UsuarioController {
 
     @Autowired
     private UsuarioService usuarioService;
+
 
     @GetMapping("/registro")
     public String mostrarFormularioRegistro(Model model) {
@@ -36,4 +40,7 @@ public class UsuarioController {
         
         return "redirect:/usuario/registro";
     }
+     
+   
+    
 }

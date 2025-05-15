@@ -45,6 +45,8 @@ public class EmailServiceImpl implements EmailService {
         
         emailSender.send(message);
     }
+     
+    
 
     @Override
     @Transactional
@@ -58,7 +60,9 @@ public class EmailServiceImpl implements EmailService {
     @Override
     @Transactional
     public void eliminarEmail(String email) {
-        emailRepository.deleteById(email);
+      if (this.emailRepository.existsById(email)) {
+            this.emailRepository.deleteById(email);
+        } 
     }
 
     
