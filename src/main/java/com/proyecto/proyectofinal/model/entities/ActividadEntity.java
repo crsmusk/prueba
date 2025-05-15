@@ -45,6 +45,8 @@ public class ActividadEntity {
     private String descripcionActividad;
    
     private int capacidad;
+    @Column(name="imagen_referencia")
+    private String imagenReferencia;
      
     @ManyToOne
     @JoinColumn(name = "creador_cedula")
