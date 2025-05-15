@@ -6,7 +6,7 @@ import java.util.Optional;
 import com.proyecto.proyectofinal.model.entities.CiudadEntity;
 
 public interface CiudadService {
-    CiudadEntity guardarCiudad(CiudadEntity ciudad);
+    CiudadEntity guardarCiudad(String ciudad);
     Optional<CiudadEntity> buscarPorNombre(String nombreCiudad);
     List<CiudadEntity> listarTodas();
     List<CiudadEntity> obtenerCiudadesConActividades();

@@ -19,11 +19,16 @@ public class CiudadServiceImpl implements CiudadService {
 
     @Transactional
     @Override
-    public CiudadEntity guardarCiudad(CiudadEntity ciudad) {
-        CiudadEntity ciudadGuardada = ciudadRepository
-        .findById(ciudad.getNombreCiudad())
-        .orElse(this.ciudadRepository.save(ciudad));
-        return ciudadGuardada;
+    public CiudadEntity guardarCiudad(String ciudad) {
+        CiudadEntity ciudadGuardada = new CiudadEntity();
+       if (!this.ciudadRepository.existsById(ciudad)) {
+            ciudadGuardada.setNombreCiudad(ciudad);
+            ciudadGuardada = ciudadRepository.save(ciudadGuardada);
+            return ciudadGuardada;
+        } else {
+            ciudadGuardada = this.ciudadRepository.findById(ciudad).orElse(null);
+            return ciudadGuardada;
+        }
     }
     
     @Transactional(readOnly = true)

@@ -7,7 +7,7 @@ import com.proyecto.proyectofinal.model.entities.DireccionEntity;
 import com.proyecto.proyectofinal.model.idsEmbedded.IdDireccion;
 
 public interface DireccionService {
-    DireccionEntity guardarDireccion(DireccionEntity direccion);
+    DireccionEntity guardarDireccion(String direccion,String ciudad);
     Optional<DireccionEntity> buscarPorId(IdDireccion id);
     List<DireccionEntity> buscarPorTexto(String texto);
     List<DireccionEntity> listarTodas();
