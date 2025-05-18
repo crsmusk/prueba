@@ -13,7 +13,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.proyecto.proyectofinal.mappers.MapperUsuarioResponse;
 import com.proyecto.proyectofinal.model.dtos.requestDtos.RequestUsuarioDTO;
+import com.proyecto.proyectofinal.model.dtos.responseDtos.ResponseUsuarioDTO;
 import com.proyecto.proyectofinal.model.entities.EmailEntity;
 import com.proyecto.proyectofinal.model.entities.InteresEntity;
 import com.proyecto.proyectofinal.model.entities.RolEntity;
@@ -28,7 +30,7 @@ import com.proyecto.proyectofinal.service.interfaces.UsuarioService;
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
 
-    @Value ("${file.upload-dir}")
+    @Value ("${file.upload-dir.fotos}")
     String direccion;
     
     @Autowired
@@ -42,6 +44,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Autowired
     private InteresServiceImpl interesService;
+
+    @Autowired
+    private MapperUsuarioResponse mapper;
 
     @Transactional
     @Override
@@ -98,28 +103,27 @@ public class UsuarioServiceImpl implements UsuarioService {
     
     @Transactional(readOnly = true)
     @Override
-    public Optional<UsuarioEntity> buscarPorCedula(String cedula) {
-        
-        return this.usuarioRepository.findById(cedula);
+    public ResponseUsuarioDTO buscarPorCedula(String cedula) {   
+        return this.mapper.requestToResponse(this.usuarioRepository.findById(cedula).orElse(null));
     }
 
     @Transactional(readOnly = true)
     @Override
-    public Optional<UsuarioEntity> buscarPorNombreUsuario(String nombreUsuario) {
-        return this.usuarioRepository.findByNombreUsuario(nombreUsuario);
+    public ResponseUsuarioDTO buscarPorNombreUsuario(String nombreUsuario) {
+        return this.mapper.requestToResponse(this.usuarioRepository.findByNombreUsuario(nombreUsuario).get());
     }
 
     @Transactional(readOnly = true)
     @Override
-    public List<UsuarioEntity> buscarPorInteres(String interes) {
+    public List<ResponseUsuarioDTO> buscarPorInteres(String interes) {
        
-        return this.usuarioRepository.buscarPorInteres(interes);
+        return this.mapper.requestsToResponses(this.usuarioRepository.buscarPorInteres(interes));
     }
 
     @Transactional(readOnly = true)
     @Override
-    public List<UsuarioEntity> listarTodos() {
-        return this.usuarioRepository.findAll();
+    public List<ResponseUsuarioDTO> listarTodos() {
+        return this.mapper.requestsToResponses(this.usuarioRepository.findAll());
     }
 
     @Override
@@ -178,6 +182,11 @@ public class UsuarioServiceImpl implements UsuarioService {
         }
         
         return interesesEncontrados;
+    }
+
+    @Override
+    public UsuarioEntity buscarPorId(String id) {
+       return this.usuarioRepository.findById(id).orElse(null);
     }
     
 }
