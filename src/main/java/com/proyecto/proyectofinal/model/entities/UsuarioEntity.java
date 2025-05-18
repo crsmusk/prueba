@@ -36,14 +36,14 @@ public class UsuarioEntity {
     private String cedula;
     
     @Column(name = "nombre_usuario")
-    @Size(max = 20)
+    @Size(max = 40)
     private String nombreUsuario;
     
     @Column(name = "apellido_usuario")
-    @Size(max = 20)
+    @Size(max = 40)
     private String apellidoUsuario;
     
-    @Size(max = 15)
+    @Size(max = 50)
     private String contrasena;
 
     @Column(name = "foto_perfil_referencia")
