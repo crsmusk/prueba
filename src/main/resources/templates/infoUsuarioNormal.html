@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{templates.layout/plantilla :: head}"></head>
+
+<body>
+    <header th:replace="~{templates.layout/plantilla :: barra }"></header>
+    <div class="container mt-5">
+        <div class="card mx-auto shadow-sm" style="max-width: 400px;">
+            <div class="position-relative">
+                <img th:src="@{${usuario.direccionPerfilImagen}}" class="card-img-top" alt="Imagen de perfil"
+                    style="height: 200px; object-fit: cover;">
+                <div class="position-absolute bottom-0 start-0 w-100 p-3"
+                    style="background: linear-gradient(transparent, rgba(0,0,0,0.7));">
+                    <h4 class="card-title text-white mb-0"
+                        th:text="${usuario.nombreUsuario} + ' ' + ${usuario.apellidoUsuario}">
+                        Nombre Apellido
+                    </h4>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="mb-4">
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="bi bi-person-vcard-fill fs-4 me-2 text-primary"></i>
+                        <h6 class="mb-0">Información Personal</h6>
+                    </div>
+                    <p class="card-text ms-4">
+                        <strong>Cédula:</strong> <span th:text="${usuario.cedula}">123456789</span>
+                    </p>
+                </div>
+
+                <div class="mb-4">
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="bi bi-envelope-fill fs-4 me-2 text-primary"></i>
+                        <h6 class="mb-0">Correos Electrónicos</h6>
+                    </div>
+                    <div class="ms-4">
+                        <ul class="list-unstyled">
+                            <li th:each="correo : ${usuario.correoUsuario}" class="mb-1">
+                                <i class="bi bi-dot"></i>
+                                <span th:text="${correo}">correo@ejemplo.com</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="bi bi-telephone-fill fs-4 me-2 text-primary"></i>
+                        <h6 class="mb-0">Teléfonos</h6>
+                    </div>
+                    <div class="ms-4">
+                        <ul class="list-unstyled">
+                            <li th:each="telefono : ${usuario.telefonoUsuario}" class="mb-1">
+                                <i class="bi bi-dot"></i>
+                                <span th:text="${telefono}">1234567890</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <hr class="my-4">
+
+                <div class="d-grid gap-2">
+                     <a th:href="@{/actividad/buscar}" class="btn btn-outline-primary"
+                        onclick="document.getElementById('formOculto2').submit(); return false;">
+                        Ver actividades en las que participa
+                    </a>
+                    <form id="formOculto2" th:action="@{/actividad/buscar}" method="get" style="display: none;">
+                         <input type="hidden" name="opcion" value="4" />
+                         <input type="hidden" name="resultado" th:value="${usuario.cedula}" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
