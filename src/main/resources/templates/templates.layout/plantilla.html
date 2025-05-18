@@ -7,7 +7,7 @@
 
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
 
-   
+
     <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.min.css}" />
 
     <script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
@@ -17,24 +17,59 @@
 </head>
 
 <body>
-   
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+
+    <header th:fragment="barra">
+        <nav class="navbar navbar-expand-sm navbar-dark bg-dark p-0">
+            <div class="container">
+                <a th:href="@{/actividad/listar-actividades}" class="navbar-brand">Pagina comunitaria</a>
+                <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <ul class="navbar-nav">
+                        <li class="nav-item px-2">
+                            <a th:href="@{/usuario/registro}" class="nav-link active">Registrarse</a>
+                        </li>
+                        <li class="nav-item">
+                            <a th:href="@{/usuario/login}" class="nav-link active">iniciar sesion</a>
+                        </li>
+                        <li class="nav-item">
+                            <a th:href="@{/actividad/guardar}" class="nav-link active">crear actividad</a>
+                        </li>
+                        <li class="nav-item">
+                            <!--<a th:href="@{/usuario/perfil-normal/{cedula}(cedula=${actividad.cedulaCreador})}" class="text-decoration-none text-reset">-->
+                            <a th:href="@{/usuario/perfil}" class="nav-link active">mi perfil</a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </nav>
+    </header>
+    
+    <nav>
+        
+    </nav>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm mb-4" th:fragment="opciones">
         <div class="container-fluid">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link active" href="#">Active</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Disabled</a>
-                </li>
-            </ul>
+            <div class="dropdown">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+                    Opciones
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" th:href="@{/actividad/crear-actividad}" th:text="crear actividad">crear
+                            actividad</a></li>
+                    <li><a class="dropdown-item" href="#">Mis actividades</a></li>
+                    <li><a class="dropdown-item" href="#">Configuración</a></li>
+                </ul>
+            </div>
         </div>
     </nav>
+
+    
+
+
     <footer></footer>
 </body>
