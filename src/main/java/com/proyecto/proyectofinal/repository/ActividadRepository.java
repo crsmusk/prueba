@@ -9,10 +9,9 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.proyecto.proyectofinal.model.entities.ActividadEntity;
-import com.proyecto.proyectofinal.model.idsEmbedded.IdActividad;
 
 @Repository
-public interface ActividadRepository extends JpaRepository<ActividadEntity, IdActividad> {
+public interface ActividadRepository extends JpaRepository<ActividadEntity, LocalDateTime> {
     
     // Buscar actividades por ciudad
     @Query("SELECT a FROM ActividadEntity a WHERE a.direccionActividad.ciudad.nombreCiudad = :ciudad")
@@ -26,12 +25,19 @@ public interface ActividadRepository extends JpaRepository<ActividadEntity, IdAc
     @Query("SELECT a FROM ActividadEntity a WHERE a.creador.cedula = :cedula")
     List<ActividadEntity> buscarActividadesPorCreador(@Param("cedula") String cedula);  
 
-    // Buscar actividades entre fechas
-    @Query("SELECT a FROM ActividadEntity a WHERE a.id.fechaInicio = :inicio")
-    List<ActividadEntity> buscarPorFecha(  @Param("inicio") LocalDateTime inicio);
+    // Buscar actividades entre fechas 
+       @Query("SELECT a FROM ActividadEntity a WHERE a.fechaInicio = :inicio")
+    List<ActividadEntity> buscarPorFecha(@Param("inicio") LocalDateTime inicio);
 
     // Buscar actividades próximas (que no han comenzado)
-    @Query("SELECT a FROM ActividadEntity a WHERE a.id.fechaInicio > CURRENT_TIMESTAMP")
+    @Query("SELECT a FROM ActividadEntity a WHERE a.fechaInicio > CURRENT_TIMESTAMP")
     List<ActividadEntity> buscarProximasActividades();
+
+    //Buscar por nombre actividad
+    List<ActividadEntity>findByNombreActividadContainingIgnoreCase(String nombre);
+    
+    //Optener las actuvidades en las que participa un usuario
+    @Query("SELECT a FROM ActividadEntity a JOIN a.participantes p WHERE p.cedula = :cedula")
+    List<ActividadEntity> buscarActividadesPorParticipante(@Param("cedula") String cedula);
     
 }
