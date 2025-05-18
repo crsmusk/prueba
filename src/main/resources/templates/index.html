@@ -1,76 +1,119 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro de Usuario</title>
-    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
-    <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/font-awesome.min.css}" />
-    <link rel="stylesheet" th:href="@{/webjars/jquery-ui/jquery-ui.min.css}" />
-    
-    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
-    <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
-    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
+<head th:replace="~{templates.layout/plantilla :: head}">
 </head>
-<body>
 
-    
-    <div class="container mt-5">
-        <h2 class="mb-4">Registro de Usuario</h2>
-        
+<body class="bg-light">
 
-        <form th:action="@{/usuario/guardar}" method="post" th:object="${usuarioDto}" enctype="multipart/form-data">
-            <div class="mb-3">
-                <label for="cedula" class="form-label">Cédula</label>
-                <input type="text" class="form-control" id="cedula" th:field="*{cedula}" required>
+
+    <header th:replace="~{templates.layout/plantilla :: barra }"></header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+        <div class="container">
+            <div class="collapse navbar-collapse">
+                <form class="d-flex w-100" id="searchForm" th:action="@{/actividad/buscar}" method="get">
+                    <div class="input-group">
+
+                        <input class="form-control" type="search" name="resultado" placeholder="escriba aqui..."
+                            aria-label="Search">
+
+
+                        <select class="form-select" name="opcion" id="tipoBusqueda" style="max-width: 200px;">
+                            <option value="1">Por nombre</option>
+                            <option value="2">Por ciudad</option>
+                            <option value="3">Por interés</option>
+                        </select>
+
+
+                        <input class="btn btn-primary" type="submit" name="buscar" id="buscar">
+                    </div>
+                </form>
             </div>
-            
-            <div class="mb-3">
-                <label for="nombreUsuario" class="form-label">Nombre</label>
-                <input type="text" class="form-control" id="nombreUsuario" th:field="*{nombreUsuario}" required>
+        </div>
+    </nav>
+
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 mx-auto">
+                <div class="card mb-4 shadow" th:each="actividad : ${actividades}">
+                    <div class="card-header bg-white d-flex align-items-center p-3">
+                        <img th:src="@{${actividad.direccionFotoCreador}}" alt="Avatar" class="rounded-circle me-3"
+                            style="width: 48px; height: 48px; object-fit: cover;">
+                        <div>
+                            <a th:href="@{/usuario/perfil-creador/{cedula}(cedula=${actividad.cedulaCreador})}"
+                                class="text-decoration-none text-reset">
+                                <h5 class="mb-0" th:text="${actividad.creador}">Juan Pérez</h5>
+                            </a>
+                            <small class="text-muted" th:text="${actividad.correoCreador}">@juanp</small>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title" th:text="${actividad.nombreActividad}">Nombre de la actividad</h4>
+
+                        <div class="mb-3">
+                            <div class="d-flex align-items-center gap-2 mb-2 text-muted">
+                                <i class="bi bi-calendar-event"></i>
+                                <span
+                                    th:text="${#temporals.format(actividad.fechaInicio, 'dd/MM/yyyy HH:mm')}">Fecha</span>
+                            </div>
+                            <div class="d-flex align-items-center gap-2 mb-2 text-muted">
+                                <i class="bi bi-geo-alt"></i>
+                                <span th:text="${actividad.ciudad + ' - ' + actividad.direccion}">Ubicación</span>
+                            </div>
+                            <div class="mb-2">
+                                <div class="d-flex flex-wrap gap-1">
+                                    <span th:each="interes : ${actividad.intereses}"
+                                        class="badge bg-primary bg-opacity-10 text-primary small">
+                                        <i class="bi bi-tag"></i>
+                                        <span th:text="${interes}">Interés</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <button class="btn btn-link p-0 text-decoration-none d-block mb-2" data-bs-toggle="collapse"
+                                th:data-bs-target="'#descripcionCompleta' + ${actividad.nombreActividad}"
+                                aria-expanded="false">
+                                <i class="bi bi-info-circle"></i> Mostrar descripción
+                            </button>
+                            <div class="collapse" th:id="'descripcionCompleta' + ${actividad.nombreActividad}">
+                                <p class="card-text" th:text="${actividad.descripcionActividad}">Descripción de la
+                                    actividad</p>
+                            </div>
+                        </div>
+                        <img th:src="@{${actividad.direccionImagen}}" alt="Imagen de la actividad"
+                            class="img-fluid rounded mb-3" style="width: 100%; object-fit: cover;">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="d-flex gap-2">
+                                <button class="btn btn-primary">👍 Inscribirme</button>
+                                <button class="btn btn-outline-primary">💬 Comentar</button>
+                                <!--<div th:if="${#authentication.principal.cedula == actividad.cedulaCreador}">-->
+                                <div>
+                                    <!--/actualizar-actividad-->
+                                     <a th:href="@{/actividad/actualizar/{fechaCreacion}(fechaCreacion=${actividad.fechaCreacion})}"
+                                        class="btn btn-warning text-white bg-dark border-dark" >
+                                       
+                                        <!--onclick="document.getElementById('formOculto').submit(); return false;"-->
+                                        <i class="bi bi-pencil"></i> Editar
+                                    </a>
+                                    <a th:href="@{/actividad/eliminar-actividad/{fechaCreacion}(fechaCreacion=${actividad.fechaCreacion})}"
+                                        class="btn btn-warning text-white bg-dark border-dark">
+                                        <i class="bi bi-trash"></i> Eliminar
+                                    </a>
+                        
+                                </div>
+                            </div>
+                            <span class="badge bg-success" th:text="'Cupos disponibles: ' + ${actividad.cupos}">
+                                cupos disponibles
+                            </span>
+                        </div>
+                    </div>
+                </div>
             </div>
-            
-            <div class="mb-3">
-                <label for="apellidoUsuario" class="form-label">Apellido</label>
-                <input type="text" class="form-control" id="apellidoUsuario" th:field="*{apellidoUsuario}" required>
-            </div>
-            
-            <div class="mb-3">
-                <label for="contrasena" class="form-label">Contraseña</label>
-                <input type="password" class="form-control" id="contrasena" th:field="*{contrasena}" required>
-            </div>
-            
-            <div class="mb-3">
-                <label for="fotoPerfil" class="form-label">Foto de Perfil</label>
-                <input type="file" class="form-control" id="fotoPerfil" name="fotoPerfil" accept="image/*">
-            </div>
-            
-            <div class="mb-3">
-                <label for="telefonos" class="form-label">Teléfonos (separados por coma)</label>
-                <input type="text" class="form-control" id="telefonos" th:field="*{telefonos}" 
-                       placeholder=" 3001234567, 3109876543">
-            </div>
-            
-            <div class="mb-3">
-                <label for="emails" class="form-label">Emails (separados por coma)</label>
-                <input type="text" class="form-control" id="emails" th:field="*{emails}" 
-                       placeholder=" correo1@dominio.com, correo2@dominio.com">
-            </div>
-            
-            <div class="mb-3">
-                <label for="intereses" class="form-label">Intereses (separados por coma)</label>
-                <input type="text" class="form-control" id="intereses" th:field="*{intereses}" 
-                       placeholder=" deportes, música, lectura">
-            </div>
-            
-            <div class="mb-3">
-                <label for="roles" class="form-label">Roles (separados por coma)</label>
-                <input type="text" class="form-control" id="roles" th:field="*{roles}" 
-                       placeholder=" USUARIO, ADMIN">
-            </div>
-            
-            <button type="submit" class="btn btn-primary">Guardar Usuario</button>
-        </form>
+        </div>
     </div>
 </body>
+
 </html>
