@@ -4,6 +4,7 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinColumns;
 import jakarta.persistence.JoinTable;
@@ -19,9 +20,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
-import com.proyecto.proyectofinal.model.idsEmbedded.IdActividad;
 
 @Setter
 @Getter
@@ -32,9 +33,12 @@ import com.proyecto.proyectofinal.model.idsEmbedded.IdActividad;
 @Entity
 @Table(name = "actividades")
 public class ActividadEntity {
-
-    @EmbeddedId
-    private IdActividad id;
+    @Id
+    @Column(name = "fecha_creacion")
+    private LocalDateTime fechaCreacion;
+      
+    @Column(name = "fecha_inicio")
+    private LocalDateTime fechaInicio;
     
     @Column(name = "nombre_actividad")
     @Size(max = 50)
@@ -50,23 +54,15 @@ public class ActividadEntity {
      
     @ManyToOne
     @JoinColumn(name = "creador_cedula")
-    private UsuarioEntity creador;
-
-    @ManyToMany
+    private UsuarioEntity creador;    @ManyToMany
     @JoinTable(name = "participantes",
-            joinColumns = {
-                @JoinColumn(name = "fecha_inicio", referencedColumnName = "fecha_inicio"),
-                @JoinColumn(name = "fecha_creacion", referencedColumnName = "fecha_creacion")
-            },
+            joinColumns = @JoinColumn(name = "fecha_creacion", referencedColumnName = "fecha_creacion"),
             inverseJoinColumns = @JoinColumn(name = "usuario_cedula"))
     private List<UsuarioEntity> participantes;
 
     @ManyToMany
     @JoinTable(name = "intereses_actividad",
-            joinColumns = {
-                @JoinColumn(name = "fecha_inicio", referencedColumnName = "fecha_inicio"),
-                @JoinColumn(name = "fecha_creacion", referencedColumnName = "fecha_creacion")
-            },
+            joinColumns = @JoinColumn(name = "fecha_creacion", referencedColumnName = "fecha_creacion"),
             inverseJoinColumns = @JoinColumn(name = "interes"))
     private List<InteresEntity> interesesActividad;
 
