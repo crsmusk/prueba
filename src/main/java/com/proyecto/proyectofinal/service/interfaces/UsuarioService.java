@@ -5,14 +5,16 @@ import java.util.Optional;
 
 
 import com.proyecto.proyectofinal.model.dtos.requestDtos.RequestUsuarioDTO;
+import com.proyecto.proyectofinal.model.dtos.responseDtos.ResponseUsuarioDTO;
 import com.proyecto.proyectofinal.model.entities.UsuarioEntity;
 
 public interface UsuarioService {
     UsuarioEntity guardarUsuario(RequestUsuarioDTO usuario);
-    Optional<UsuarioEntity> buscarPorCedula(String cedula);
-    Optional<UsuarioEntity> buscarPorNombreUsuario(String nombreUsuario);
-    List<UsuarioEntity> buscarPorInteres(String interes);
-    List<UsuarioEntity> listarTodos();
+    ResponseUsuarioDTO buscarPorCedula(String cedula);
+    ResponseUsuarioDTO buscarPorNombreUsuario(String nombreUsuario);
+    List<ResponseUsuarioDTO> buscarPorInteres(String interes);
+    List<ResponseUsuarioDTO> listarTodos();
+    UsuarioEntity buscarPorId(String id);
     void eliminarUsuario(String cedula);
     //boolean existePorCedula(String cedula);
 }
