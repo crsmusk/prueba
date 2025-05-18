@@ -33,7 +33,7 @@ public class DireccionServiceImpl implements DireccionService {
             direccionGuardada= new DireccionEntity();
             direccionGuardada.setId(idDireccion);
             direccionGuardada.setCiudad(this.buscarCiudad(ciudad));
-            return direccionGuardada;
+            return this.direccionRepository.save(direccionGuardada);
         }else{
             direccionGuardada = this.direccionRepository.findById(idDireccion).get();
             return direccionGuardada;
