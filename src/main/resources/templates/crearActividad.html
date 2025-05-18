@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{templates.layout/plantilla :: head}"></head>
+
+<body>
+
+    <header th:replace="~{templates.layout/plantilla :: barra }"></header>
+
+    <div class="container form-container">
+        <h2 class="mb-4">Crear Nueva Actividad</h2>
+
+        <form th:action="@{/actividad/guardar-actividad}" method="post" th:object="${actividadDto}"
+            enctype="multipart/form-data" class="needs-validation" novalidate>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="cedulaCreador" class="form-label">Cédula del Creador</label>
+                    <input type="text" class="form-control" id="cedulaCreador" th:field="*{cedulaCreador}" required>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label for="nombre" class="form-label">Nombre de la Actividad</label>
+                    <input type="text" class="form-control" id="nombre" th:field="*{nombre}" required>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="descripcion" class="form-label">Descripción</label>
+                <textarea class="form-control" id="descripcion" th:field="*{descripcion}" rows="4" required></textarea>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="fechaInicio" class="form-label">Fecha de Inicio</label>
+                    <input type="datetime-local" class="form-control" id="fechaInicio" th:field="*{fechaInicio}"
+                        required>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label for="capacidad" class="form-label">Capacidad</label>
+                    <input type="number" class="form-control" id="capacidad" th:field="*{capacidad}" min="1" required>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="intereses" class="form-label">Intereses (separados por coma)</label>
+                <input type="text" class="form-control" id="intereses" th:field="*{intereses}"
+                    placeholder="deportes, música, arte" required>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="ciudad" class="form-label">Ciudad</label>
+                    <input type="text" class="form-control" id="ciudad" th:field="*{ciudad}" required>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label for="direccion" class="form-label">Dirección</label>
+                    <input type="text" class="form-control" id="direccion" th:field="*{direccion}" required>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="fotoActividad" class="form-label">Imagen de la Actividad</label>
+                <input type="file" class="form-control" id="fotoActividad" name="fotoActividad" accept="image/*">
+                <div id="imagePreview" class="preview-image"></div>
+            </div>
+
+             
+
+            <button type="submit" class="btn btn-primary">Crear Actividad</button>
+        </form>
+    </div>
+
+</body>
+
+</html>
