@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{templates.layout/plantilla :: head}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body>
+
+    <header th:replace="~{templates.layout/plantilla :: barra }"></header>
+    
+    <div class="container mt-5">
+        <h2 class="mb-4">Registro de Usuario</h2>
+        
+
+        <form th:action="@{/usuario/guardar}" method="post" th:object="${usuarioDto}" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="cedula" class="form-label">Cédula</label>
+                <input type="text" class="form-control" id="cedula" th:field="*{cedula}" required>
+            </div>
+            
+            <div class="mb-3">
+                <label for="nombreUsuario" class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="nombreUsuario" th:field="*{nombreUsuario}" required>
+            </div>
+            
+            <div class="mb-3">
+                <label for="apellidoUsuario" class="form-label">Apellido</label>
+                <input type="text" class="form-control" id="apellidoUsuario" th:field="*{apellidoUsuario}" required>
+            </div>
+            
+            <div class="mb-3">
+                <label for="contrasena" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" id="contrasena" th:field="*{contrasena}" required>
+            </div>
+            
+            <div class="mb-3">
+                <label for="fotoPerfil" class="form-label">Foto de Perfil</label>
+                <input type="file" class="form-control" id="fotoPerfil" name="fotoPerfil" accept="image/*">
+            </div>
+            
+            <div class="mb-3">
+                <label for="telefonos" class="form-label">Teléfonos (separados por coma)</label>
+                <input type="text" class="form-control" id="telefonos" th:field="*{telefonos}" 
+                       placeholder=" 3001234567, 3109876543">
+            </div>
+            
+            <div class="mb-3">
+                <label for="emails" class="form-label">Emails (separados por coma)</label>
+                <input type="text" class="form-control" id="emails" th:field="*{emails}" 
+                       placeholder=" correo1@dominio.com, correo2@dominio.com">
+            </div>
+            
+            <div class="mb-3">
+                <label for="intereses" class="form-label">Intereses (separados por coma)</label>
+                <input type="text" class="form-control" id="intereses" th:field="*{intereses}" 
+                       placeholder=" deportes, música, lectura">
+            </div>
+              <div class="mb-4">
+                <label class="form-label fw-bold">Tipo de Usuario</label>
+                <div class="border rounded p-3">
+                    <div class="mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="roles" id="rolUsuario" value="USER" th:field="*{roles}">
+                            <label class="form-check-label" for="rolUsuario">
+                                <div class="fw-bold mb-1">Usuario Participante</div>
+                                <small class="text-muted">
+                                    - Puede inscribirse en actividades<br>
+                                    - Puede comentar en actividades<br>
+                                    - Puede ver todas las actividades disponibles
+                                </small>
+                            </label>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="roles" id="rolCreador" value="ADMIN" th:field="*{roles}">
+                            <label class="form-check-label" for="rolCreador">
+                                <div class="fw-bold mb-1">Usuario Creador de Actividades</div>
+                                <small class="text-muted">
+                                    - Incluye todos los permisos de Usuario Participante<br>
+                                    - Puede crear y gestionar actividades<br>
+                                    - Puede modificar sus propias actividades
+                                </small>
+                            </label>
+                        </div>
+                        <div class="alert alert-warning mt-2 small">
+                            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                            <strong>Términos y Condiciones para Creadores:</strong><br>
+                            Al seleccionar este rol, usted acepta:<br>
+                            - Publicar únicamente actividades reales y verídicas<br>
+                            - Mantener la información de las actividades actualizada<br>
+                            - Respetar las políticas de la comunidad<br>
+                            - Entender que la publicación de actividades falsas o engañosas puede resultar en la suspensión de su cuenta
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Guardar Usuario</button>
+        </form>
+    </div>
+</body>
+</html>
