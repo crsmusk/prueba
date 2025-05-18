@@ -25,7 +25,7 @@ import lombok.Setter;
 @Table(name = "emails")
 public class EmailEntity {
     @Id
-    @Size(max = 20)
+    @Size(max = 60)
     @Column( unique = true)
     private String email;
     
