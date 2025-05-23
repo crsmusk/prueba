@@ -57,6 +57,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         usuarioEntity.setNombreUsuario(usuario.getNombreUsuario());
         usuarioEntity.setApellidoUsuario(usuario.getApellidoUsuario());
         usuarioEntity.setContrasena(usuario.getContrasena());
+        usuarioEntity.setNickName(usuario.getNickName());
         
 
         List<EmailEntity> emails = new ArrayList<>();
@@ -187,6 +188,11 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public UsuarioEntity buscarPorId(String id) {
        return this.usuarioRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public ResponseUsuarioDTO buscarPorNickname(String nickName) {
+       return this.mapper.requestToResponse(this.usuarioRepository.findByNickNameIgnoreCase(nickName).get());
     }
     
 }

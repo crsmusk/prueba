@@ -3,6 +3,8 @@ package com.proyecto.proyectofinal.model.dtos.responseDtos;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.apache.catalina.connector.Response;
+
 import lombok.Builder;
 import lombok.Data;
 
@@ -22,4 +24,5 @@ public class ResponseActividadDTO {
    private List<String> intereses;
    private int cupos;
    private String direccionFotoCreador;
+   private List<ResponseComentarioDTO> comentarios;
 }

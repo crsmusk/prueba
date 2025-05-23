@@ -24,9 +24,7 @@
                         <i class="bi bi-person-vcard-fill fs-4 me-2 text-primary"></i>
                         <h6 class="mb-0">Información Personal</h6>
                     </div>
-                    <p class="card-text ms-4">
-                        <strong>Cédula:</strong> <span th:text="${usuario.cedula}">123456789</span>
-                    </p>
+                    
                 </div>
 
                 <div class="mb-4">
@@ -57,6 +55,16 @@
                             </li>
                         </ul>
                     </div>
+                </div>
+
+                <div class="mb-3">
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="bi bi-person-badge fs-4 me-2 text-primary"></i>
+                        <h6 class="mb-0">NickName</h6>
+                    </div>
+                    <p class="card-text ms-4">
+                         <span th:text="${usuario.nickName}">nickName</span>
+                    </p>
                 </div>
 
                 <hr class="my-4">

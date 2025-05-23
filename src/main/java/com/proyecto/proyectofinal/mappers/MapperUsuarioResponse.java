@@ -19,6 +19,7 @@ public class MapperUsuarioResponse {
         .direccionPerfilImagen(usuario.getFotoPerfilReferencia())
         .telefonoUsuario(usuario.getTelefonos().stream().map(telefono->telefono.getId().getNumeroTelefono()).toList())
         .correoUsuario(usuario.getEmails().stream().map(email -> email.getEmail()).toList())
+        .nickName(usuario.getNickName())
         .build();
         return usuarioDTO;
     }

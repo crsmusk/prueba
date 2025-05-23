@@ -16,5 +16,6 @@ public interface UsuarioService {
     List<ResponseUsuarioDTO> listarTodos();
     UsuarioEntity buscarPorId(String id);
     void eliminarUsuario(String cedula);
+    ResponseUsuarioDTO buscarPorNickname(String nickName);
     //boolean existePorCedula(String cedula);
 }

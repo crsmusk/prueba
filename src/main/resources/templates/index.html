@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 
 <head th:replace="~{templates.layout/plantilla :: head}">
 </head>
@@ -14,7 +15,7 @@
                 <form class="d-flex w-100" id="searchForm" th:action="@{/actividad/buscar}" method="get">
                     <div class="input-group">
 
-                        <input class="form-control" type="search" name="resultado" placeholder="escriba aqui..."
+                        <input class="form-control" type="search" name="resultado" placeholder="buscar actividad"
                             aria-label="Search">
 
 
@@ -87,27 +88,65 @@
                             class="img-fluid rounded mb-3" style="width: 100%; object-fit: cover;">
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="d-flex gap-2">
-                                <button class="btn btn-primary">👍 Inscribirme</button>
-                                <button class="btn btn-outline-primary">💬 Comentar</button>
-                                <!--<div th:if="${#authentication.principal.cedula == actividad.cedulaCreador}">-->
+                                <button class="btn btn-primary" sec:authorize="isAuthenticated()">👍 Inscribirme</button>
+                                <button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse"
+                                    th:data-bs-target="'#comentarios' + ${actividad.fechaCreacion}">💬 Comentar</button>
                                 <div>
-                                    <!--/actualizar-actividad-->
-                                     <a th:href="@{/actividad/actualizar/{fechaCreacion}(fechaCreacion=${actividad.fechaCreacion})}"
-                                        class="btn btn-warning text-white bg-dark border-dark" >
-                                       
-                                        <!--onclick="document.getElementById('formOculto').submit(); return false;"-->
+                                    <a th:href="@{/actividad/actualizar/{fechaCreacion}(fechaCreacion=${actividad.fechaCreacion})}"
+                                       class="btn btn-warning text-white bg-dark border-dark"
+                                       sec:authorize="hasRole('ADMIN')">
                                         <i class="bi bi-pencil"></i> Editar
                                     </a>
                                     <a th:href="@{/actividad/eliminar-actividad/{fechaCreacion}(fechaCreacion=${actividad.fechaCreacion})}"
-                                        class="btn btn-warning text-white bg-dark border-dark">
+                                       class="btn btn-warning text-white bg-dark border-dark"
+                                       sec:authorize="hasRole('ADMIN')">
                                         <i class="bi bi-trash"></i> Eliminar
                                     </a>
-                        
                                 </div>
                             </div>
                             <span class="badge bg-success" th:text="'Cupos disponibles: ' + ${actividad.cupos}">
                                 cupos disponibles
                             </span>
+                        </div>
+                        <!-- Sección de comentarios con collapse y formulario solo para autenticados -->
+                        <div class="collapse mt-3" th:id="'comentarios' + ${actividad.fechaCreacion}">
+                            <div class="card card-body bg-light">
+                                <h6 class="mb-3"><i class="bi bi-chat-dots"></i> Comentarios</h6>
+                                <div th:if="${#lists.isEmpty(actividad.comentarios)}">
+                                    <span class="text-muted">No hay comentarios aún.</span>
+                                </div>
+                                <div th:each="comentario : ${actividad.comentarios}">
+                                    <div class="mb-3 p-2 border rounded bg-white">
+                                        <div class="d-flex align-items-center mb-1">
+                                            <i class="bi bi-person-circle me-2"></i>
+                                            <strong th:text="${comentario.nickName}"></strong>
+                                            <span class="text-muted small ms-2"
+                                                th:text="${comentario.fechaComentarioTexto}"></span>
+                                            <!-- Botón borrar solo para el autor o admin -->
+                                            <form th:action="@{/actividad/borrar-comentario}" method="get" th:if="${#authentication.name == comentario.nickName or #authorization.expression('hasRole(''ADMIN'')') }" class="ms-auto">
+                                                <input type="hidden" name="fechaComentario" th:value="${comentario.fechaComentarioTexto}" />
+                                                <input type="hidden" name="nickName" th:value="${comentario.nickName}" />
+                                                <button type="submit" class="btn btn-danger btn-sm ms-2"><i class="bi bi-trash"></i> Borrar</button>
+                                            </form>
+                                        </div>
+                                        <div class="ps-4">
+                                            <span th:text="${comentario.contenidoComentario}"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Formulario para comentar solo si está autenticado -->
+                                <form th:action="@{/actividad/comentar-actividad}" method="post" sec:authorize="isAuthenticated()" class="mt-3" >
+                                    <input type="hidden" name="idActividad" th:value="${actividad.fechaCreacion}" />
+                                    <input type="hidden" name="nickName" th:value="${#authentication.name}" />
+                                    <div class="mb-2">
+                                        <textarea class="form-control" name="contenidoComentario" rows="2" placeholder="Escribe tu comentario..." required></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-sm">Enviar comentario</button>
+                                </form>
+                                <div sec:authorize="!isAuthenticated()" class="mt-2">
+                                    <span class="text-muted small">Inicia sesión para comentar.</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -9,6 +9,7 @@ import lombok.Data;
 @Data
 public class ResponseUsuarioDTO {
   private String direccionPerfilImagen;
+  private String nickName;
   private String cedula;
   private String nombreUsuario;
   private String apellidoUsuario;

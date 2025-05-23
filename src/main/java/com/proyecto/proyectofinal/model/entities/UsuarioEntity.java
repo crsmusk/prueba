@@ -35,6 +35,9 @@ public class UsuarioEntity {
     @Size(max = 20)
     private String cedula;
     
+    @Column(name = "nick_name", unique = true)
+    private String nickName;
+    
     @Column(name = "nombre_usuario")
     @Size(max = 40)
     private String nombreUsuario;
@@ -67,9 +70,5 @@ public class UsuarioEntity {
             inverseJoinColumns = @JoinColumn(name = "rol"))
     private List<RolEntity> roles;
     
-    @ManyToMany
-    @JoinTable(name = "usuarios_notificaciones",
-            joinColumns = @JoinColumn(name = "usuario_cedula"),
-            inverseJoinColumns = @JoinColumn(name = "notificacion_id"))
-    private List<NotificacionEntity> notificacion;
+
 }

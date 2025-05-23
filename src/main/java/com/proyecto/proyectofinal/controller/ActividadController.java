@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.proyecto.proyectofinal.mappers.MapperDtos;
 import com.proyecto.proyectofinal.model.dtos.requestDtos.RequestActividadDTO;
+import com.proyecto.proyectofinal.model.dtos.requestDtos.RequestComentariosDTO;
 import com.proyecto.proyectofinal.model.dtos.responseDtos.ResponseActividadDTO;
+import com.proyecto.proyectofinal.service.impl.ComentariosServiceImpl;
 import com.proyecto.proyectofinal.service.interfaces.ActividadService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -27,6 +29,8 @@ public class ActividadController {
     private ActividadService actividadService;
     @Autowired
     private MapperDtos mapper;
+    @Autowired
+    private ComentariosServiceImpl comentariosService;
 
     @GetMapping("/buscar")
     public String buscarActividades(@RequestParam String resultado, @RequestParam String opcion, Model model) {
@@ -60,6 +64,7 @@ public class ActividadController {
 
     @GetMapping("/listar-actividades")
     public String mostrarActividades(Model model) {
+       
         model.addAttribute("actividades", this.actividadService.buscarProximasActividades());
         return "index";
     }
@@ -106,6 +111,32 @@ public class ActividadController {
     @GetMapping("/eliminar-actividad/{fechaCreacion}")
     public String eliminarActividad(@PathVariable LocalDateTime fechaCreacion) {
         this.actividadService.eliminarActividad(fechaCreacion);
+        return "redirect:/actividad/listar-actividades";
+    }
+
+
+    @PostMapping("/comentar-actividad")
+    public String comentarActividad(@RequestParam String idActividad,@RequestParam String contenidoComentario,
+            @RequestParam String nickName, Model model) {
+        RequestComentariosDTO comentarioDto = new RequestComentariosDTO();
+        LocalDateTime fechaCreacion = LocalDateTime.parse(idActividad);
+       
+            comentarioDto.setContenidoComentario(contenidoComentario);
+       
+        
+            comentarioDto.setNickName(nickName);
+        
+        comentarioDto.setActividadId(fechaCreacion);
+       
+        this.comentariosService.guardarComentario(comentarioDto);
+        return "redirect:/actividad/listar-actividades";
+    }
+
+    @GetMapping("/borrar-comentario")
+    public String borrarComentario(@RequestParam String fechaComentario,@RequestParam String nickName,Model model) {
+            LocalDateTime fechaCreacionComentario = LocalDateTime.parse(fechaComentario);
+            this.comentariosService.eliminarComentario(fechaCreacionComentario, nickName);
+
         return "redirect:/actividad/listar-actividades";
     }
 

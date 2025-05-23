@@ -1,6 +1,11 @@
 package com.proyecto.proyectofinal.model.entities;
 
 
+import java.time.LocalDateTime;
+
+import org.springframework.cglib.core.Local;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,8 +32,8 @@ import lombok.Setter;
 @Table(name = "comentarios")
 public class ComentarioEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "fecha_comentario")
+    private LocalDateTime fechaComentario;
     
     @Size(max = 500)
     private String contenido;

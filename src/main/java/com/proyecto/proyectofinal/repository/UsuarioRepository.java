@@ -19,5 +19,8 @@ public interface UsuarioRepository extends JpaRepository<UsuarioEntity, String> 
     // Buscar usuarios por interes
     @Query("SELECT u FROM UsuarioEntity u JOIN u.intereses i WHERE i.interes = :interes")
     List<UsuarioEntity> buscarPorInteres(@Param("interes") String interes);
+
+    //buscar por nickName
+    Optional<UsuarioEntity> findByNickNameIgnoreCase(String nickName);
           
 }

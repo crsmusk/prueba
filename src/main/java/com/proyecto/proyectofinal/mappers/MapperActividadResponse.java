@@ -2,6 +2,7 @@ package com.proyecto.proyectofinal.mappers;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.proyecto.proyectofinal.model.dtos.responseDtos.ResponseActividadDTO;
@@ -9,7 +10,9 @@ import com.proyecto.proyectofinal.model.entities.ActividadEntity;
 
 @Component
 public class MapperActividadResponse {
-
+     
+    @Autowired
+    private MapperComentarioResponse mapperComentarioResponse;
     public ResponseActividadDTO requestToResponse(ActividadEntity actividad) {
         ResponseActividadDTO actividadDTO = ResponseActividadDTO.builder()
                 .creador(actividad.getCreador().getNombreUsuario())
@@ -25,6 +28,7 @@ public class MapperActividadResponse {
                 .fechaCreacion(actividad.getFechaCreacion())
                 .direccion(actividad.getDireccionActividad().getId().getDireccion())
                 .ciudad(actividad.getDireccionActividad().getId().getCiudad())
+                .comentarios(mapperComentarioResponse.requestsToResponses(actividad.getComentarios()))
                 .build();
         return actividadDTO;
     }

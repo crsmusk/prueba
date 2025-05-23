@@ -33,11 +33,11 @@ public class UsuarioController {
         return "infoUsuarioCreador";
     }
 
-    @GetMapping("/perfil-normal/{cedula}")
-    public String mostrarPerfilNormal(@PathVariable String cedula, Model model) {
-        model.addAttribute("usuario", this.usuarioService.buscarPorCedula(cedula));
+    @GetMapping("/perfil-normal/{nickName}")
+    public String mostrarPerfilNormal(@PathVariable String nickName, Model model) {
+        model.addAttribute("usuario", this.usuarioService.buscarPorNickname(nickName));
 
-        return "infoUsuarioCreador";
+        return "infoUsuarioNormal";
     }
 
     @PostMapping("/guardar")

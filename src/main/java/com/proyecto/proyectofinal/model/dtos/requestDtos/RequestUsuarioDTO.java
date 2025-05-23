@@ -37,4 +37,6 @@ public class RequestUsuarioDTO {
     private List<String> intereses;
     
     private List<String> roles;
+
+    private String nickName;
 }
