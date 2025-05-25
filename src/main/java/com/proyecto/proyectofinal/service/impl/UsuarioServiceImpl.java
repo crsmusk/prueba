@@ -131,6 +131,15 @@ public class UsuarioServiceImpl implements UsuarioService {
     public void eliminarUsuario(String cedula) {
         if (this.usuarioRepository.existsById(cedula)) {
             this.usuarioRepository.deleteById(cedula);
+             String rutaPortada =this.usuarioRepository.findById(cedula).get().getFotoPerfilReferencia();
+            // Eliminar la foto de perfil del sistema de archivos
+             if (rutaPortada != null) {
+                String nombreArchivo = rutaPortada.substring(rutaPortada.lastIndexOf("/") + 1);
+                File archivo = new File(direccion + File.separator + nombreArchivo);
+                if (archivo.exists()) {
+                    archivo.delete();
+                }
+            }
         } 
     }
 
