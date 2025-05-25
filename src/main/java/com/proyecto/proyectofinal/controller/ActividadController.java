@@ -72,8 +72,9 @@ public class ActividadController {
     @PostMapping("/guardar-actividad")
     public String guardarActividad(@ModelAttribute("actividadDto") RequestActividadDTO actividadDTO,
             RedirectAttributes redirectAttributes) {
+               
         this.actividadService.guardarActividad(actividadDTO);
-        return "index";
+        return "redirect:/actividad/listar-actividades";
     }
 
     @GetMapping("/borrar-actividad/{fechaCreacion}")
@@ -103,9 +104,9 @@ public class ActividadController {
             LocalDateTime fechaCreacion = LocalDateTime.parse(actividadDTO.getFechaCreacionTexto());
             actividadDTO.setFechaCreacion(fechaCreacion);
              this.actividadService.actualizarActividad(actividadDTO.getFechaCreacion(), actividadDTO);   
-            //return "redirect:/actividad/listar-actividades";
+            
            
-            return "index";
+            return "redirect:/actividad/listar-actividades";
     }
 
     @GetMapping("/eliminar-actividad/{fechaCreacion}")
@@ -139,5 +140,19 @@ public class ActividadController {
 
         return "redirect:/actividad/listar-actividades";
     }
+
+    @PostMapping("/inscribirse")
+    public String inscribirseActividad(@RequestParam String nickName, @RequestParam String idActividad, Model model) {
+        LocalDateTime fechaCreacion = LocalDateTime.parse(idActividad);
+        this.actividadService.inscribirUsuario(fechaCreacion, nickName);
+        return "redirect:/actividad/listar-actividades";
+    }
+    @PostMapping("/desinscribirse")
+    public String desinscribirseActividad(@RequestParam String nickName, @RequestParam String idActividad, Model model) {
+        LocalDateTime fechaCreacion = LocalDateTime.parse(idActividad);
+        this.actividadService.eliminarInscripcion(fechaCreacion, nickName);
+        return "redirect:/actividad/listar-actividades";
+    }
+    
 
 }
