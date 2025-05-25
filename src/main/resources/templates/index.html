@@ -7,7 +7,7 @@
 
 <body class="bg-light">
 
-
+     
     <header th:replace="~{templates.layout/plantilla :: barra }"></header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
         <div class="container">
@@ -87,18 +87,29 @@
                         <img th:src="@{${actividad.direccionImagen}}" alt="Imagen de la actividad"
                             class="img-fluid rounded mb-3" style="width: 100%; object-fit: cover;">
                         <div class="d-flex justify-content-between align-items-center">
-                            <div class="d-flex gap-2">
-                                <button class="btn btn-primary" sec:authorize="isAuthenticated()">👍 Inscribirme</button>
-                                <button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse"
+                            <div class="d-flex gap-2 flex-wrap align-items-center">
+                                <!-- Botón inscribirse -->
+                                <form th:action="@{/actividad/inscribirse}" method="post" sec:authorize="isAuthenticated()" class="m-0">
+                                    <input type="hidden" name="nickName" th:value="${#authentication.name}" />
+                                    <input type="hidden" name="idActividad" th:value="${actividad.fechaCreacion}" />
+                                    <button type="submit" class="btn btn-outline-dark btn-sm">👍 Inscribirme</button>
+                                </form>
+                                <!-- Botón desinscribirse -->
+                                <form th:action="@{/actividad/desinscribirse}" method="post" sec:authorize="isAuthenticated()" class="m-0">
+                                    <input type="hidden" name="nickName" th:value="${#authentication.name}" />
+                                    <input type="hidden" name="idActividad" th:value="${actividad.fechaCreacion}" />
+                                    <button type="submit" class="btn btn-outline-secondary btn-sm">❌ Desinscribirme</button>
+                                </form>
+                                <button class="btn btn-outline-dark btn-sm" type="button" data-bs-toggle="collapse"
                                     th:data-bs-target="'#comentarios' + ${actividad.fechaCreacion}">💬 Comentar</button>
-                                <div>
+                                <div class="d-flex gap-1 flex-wrap align-items-center ms-2">
                                     <a th:href="@{/actividad/actualizar/{fechaCreacion}(fechaCreacion=${actividad.fechaCreacion})}"
-                                       class="btn btn-warning text-white bg-dark border-dark"
+                                       class="btn btn-outline-dark btn-sm mb-1"
                                        sec:authorize="hasRole('ADMIN')">
                                         <i class="bi bi-pencil"></i> Editar
                                     </a>
                                     <a th:href="@{/actividad/eliminar-actividad/{fechaCreacion}(fechaCreacion=${actividad.fechaCreacion})}"
-                                       class="btn btn-warning text-white bg-dark border-dark"
+                                       class="btn btn-outline-danger btn-sm mb-1"
                                        sec:authorize="hasRole('ADMIN')">
                                         <i class="bi bi-trash"></i> Eliminar
                                     </a>
