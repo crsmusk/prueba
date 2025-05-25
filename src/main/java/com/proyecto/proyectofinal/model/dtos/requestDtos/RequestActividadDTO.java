@@ -22,4 +22,5 @@ public class RequestActividadDTO {
     private String ciudad;
     private String direccion;
     private MultipartFile fotoActividad;
+    private String nicknameCreador;
 }
