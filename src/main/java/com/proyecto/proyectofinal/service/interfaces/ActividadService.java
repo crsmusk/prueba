@@ -21,5 +21,6 @@ public interface ActividadService {
     List<ResponseActividadDTO> buscarPorParticipante(String cedula);
     void eliminarActividad(LocalDateTime fechaCreacion);
     void actualizarActividad(LocalDateTime fechaCreacion, RequestActividadDTO actividadDto)throws IOException;
-    ActividadEntity inscribirUsuario(LocalDateTime fechaCreacion, String cedulaUsuario);
+    ActividadEntity inscribirUsuario(LocalDateTime fechaCreacion, String nickname) ;
+    void eliminarInscripcion(LocalDateTime fechaCreacion, String nickname);
 }
