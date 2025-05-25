@@ -41,9 +41,5 @@ public interface ActividadRepository extends JpaRepository<ActividadEntity, Loca
     @Query("SELECT a FROM ActividadEntity a JOIN a.participantes p WHERE p.cedula = :cedula")
     List<ActividadEntity> buscarActividadesPorParticipante(@Param("cedula") String cedula);
     
-    // Eliminar la participación de un usuario en una actividad
-    @Modifying
-    @Query(value = "DELETE FROM participantes WHERE fecha_creacion = :fechaCreacion AND usuario_cedula = :cedula", nativeQuery = true)
-    void eliminarParticipacion(@Param("fechaCreacion") LocalDateTime fechaCreacion, @Param("cedula") String cedula);
-
+   
 }
