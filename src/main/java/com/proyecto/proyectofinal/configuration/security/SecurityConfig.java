@@ -30,6 +30,7 @@ public class SecurityConfig {
                 .formLogin(form -> form
                         .loginPage("/login")
                         .defaultSuccessUrl("/actividad/listar-actividades", true)
+                        .failureUrl("/usuario/login") // Redirige a login con error
                         .permitAll())
                 .logout(logout -> logout
                         .logoutSuccessUrl("/actividad/listar-actividades")
