@@ -18,4 +18,5 @@ public interface UsuarioService {
     void eliminarUsuario(String cedula);
     ResponseUsuarioDTO buscarPorNickname(String nickName);
     //boolean existePorCedula(String cedula);
+    
 }
