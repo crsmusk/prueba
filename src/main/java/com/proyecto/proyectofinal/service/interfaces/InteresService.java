@@ -9,6 +9,6 @@ public interface InteresService {
     InteresEntity guardarInteres(InteresEntity interes);
     Optional<InteresEntity> buscarPorNombre(String nombre);
     List<InteresEntity> listarTodos();
-    List<InteresEntity> obtenerInteresesPopulares();
+    
     void eliminarInteres(String nombre);
 }
