@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -40,4 +41,9 @@ public interface ActividadRepository extends JpaRepository<ActividadEntity, Loca
     @Query("SELECT a FROM ActividadEntity a JOIN a.participantes p WHERE p.cedula = :cedula")
     List<ActividadEntity> buscarActividadesPorParticipante(@Param("cedula") String cedula);
     
+    // Eliminar la participación de un usuario en una actividad
+    @Modifying
+    @Query(value = "DELETE FROM participantes WHERE fecha_creacion = :fechaCreacion AND usuario_cedula = :cedula", nativeQuery = true)
+    void eliminarParticipacion(@Param("fechaCreacion") LocalDateTime fechaCreacion, @Param("cedula") String cedula);
+
 }
