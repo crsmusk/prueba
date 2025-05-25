@@ -18,8 +18,14 @@ public class InteresServiceImpl implements InteresService {
 
     @Override
     public InteresEntity guardarInteres(InteresEntity interes) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'guardarInteres'");
+        InteresEntity interesGuardar= this.interesRepository.findByInteresIgnoreCase(interes.getInteres());
+        if (interesGuardar == null) {
+            return this.interesRepository.save(interes);
+        } else {
+            return interesGuardar;
+            
+        }
+           
     }   
     
     @Override
@@ -30,20 +36,17 @@ public class InteresServiceImpl implements InteresService {
 
     @Override
     public List<InteresEntity> listarTodos() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'listarTodos'");
+       
+        return interesRepository.findAll();
     }
 
-    @Override
-    public List<InteresEntity> obtenerInteresesPopulares() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'obtenerInteresesPopulares'");
-    }
-
+    
     @Override
     public void eliminarInteres(String nombre) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'eliminarInteres'");
+        InteresEntity interes = interesRepository.findByInteresIgnoreCase(nombre);
+        if (interes != null) {
+            interesRepository.delete(interes);
+        } 
     }
     
    
