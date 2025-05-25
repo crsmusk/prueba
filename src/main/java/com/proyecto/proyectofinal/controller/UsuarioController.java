@@ -42,7 +42,12 @@ public class UsuarioController {
 
     @PostMapping("/guardar")
     public String guardarUsuario(@ModelAttribute("usuarioDto") RequestUsuarioDTO usuarioDto,
-            RedirectAttributes redirectAttributes) {
+            RedirectAttributes redirectAttributes, Model model) {
+        if (usuarioService.existePorNickName(usuarioDto.getNickName())) {
+            model.addAttribute("usuarioDto", usuarioDto);
+            model.addAttribute("errorNickName", "El nickname ya está en uso, por favor elige otro.");
+            return "crearUsuario";
+        }
         this.usuarioService.guardarUsuario(usuarioDto);
 
         return "redirect:/actividad/listar-actividades";
@@ -58,5 +63,6 @@ public class UsuarioController {
         this.usuarioService.eliminarUsuario(cedula);
         return "redirect:/actividad/listar-actividades";
     }
+
 
 }

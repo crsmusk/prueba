@@ -203,5 +203,10 @@ public class UsuarioServiceImpl implements UsuarioService {
     public ResponseUsuarioDTO buscarPorNickname(String nickName) {
        return this.mapper.requestToResponse(this.usuarioRepository.findByNickNameIgnoreCase(nickName).get());
     }
+
+    @Override
+    public boolean existePorNickName(String nickName) {
+        return this.usuarioRepository.existsByNickNameIgnoreCase(nickName);
+    }
     
 }

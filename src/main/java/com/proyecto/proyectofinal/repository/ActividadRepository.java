@@ -41,5 +41,5 @@ public interface ActividadRepository extends JpaRepository<ActividadEntity, Loca
     @Query("SELECT a FROM ActividadEntity a JOIN a.participantes p WHERE p.cedula = :cedula")
     List<ActividadEntity> buscarActividadesPorParticipante(@Param("cedula") String cedula);
     
-   
+    
 }

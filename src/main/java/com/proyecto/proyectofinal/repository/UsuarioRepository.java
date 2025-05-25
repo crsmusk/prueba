@@ -22,5 +22,8 @@ public interface UsuarioRepository extends JpaRepository<UsuarioEntity, String> 
 
     //buscar por nickName
     Optional<UsuarioEntity> findByNickNameIgnoreCase(String nickName);
+
+    //saber si un usuario existe por su nickName
+    boolean existsByNickNameIgnoreCase(String nickName);
           
 }
