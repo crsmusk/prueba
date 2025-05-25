@@ -54,7 +54,8 @@ public class ActividadEntity {
      
     @ManyToOne
     @JoinColumn(name = "creador_cedula")
-    private UsuarioEntity creador;    @ManyToMany
+    private UsuarioEntity creador; 
+    @ManyToMany
     @JoinTable(name = "participantes",
             joinColumns = @JoinColumn(name = "fecha_creacion", referencedColumnName = "fecha_creacion"),
             inverseJoinColumns = @JoinColumn(name = "usuario_cedula"))
