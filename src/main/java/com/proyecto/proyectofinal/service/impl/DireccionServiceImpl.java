@@ -27,6 +27,10 @@ public class DireccionServiceImpl implements DireccionService {
     public DireccionEntity guardarDireccion(String direccion,String ciudad) {
         IdDireccion idDireccion = new IdDireccion();
         idDireccion.setDireccion(direccion);
+        /*
+         *  Se llame el metodo buscar  ciudad para verificar si existe la ciudad
+         *  en la base de datos, si no existe se crea una nueva ciudad
+         */
         idDireccion.setCiudad(buscarCiudad(ciudad).getNombreCiudad() );
         DireccionEntity direccionGuardada ;
         if (!this.direccionRepository.existsById(idDireccion)){
