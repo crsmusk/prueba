@@ -45,7 +45,7 @@ public class UsuarioController {
             RedirectAttributes redirectAttributes) {
         this.usuarioService.guardarUsuario(usuarioDto);
 
-        return "redirect:/usuario/crearUsuario";
+        return "redirect:/actividad/listar-actividades";
     }
 
     @GetMapping("/login")
